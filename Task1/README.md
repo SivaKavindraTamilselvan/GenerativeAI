@@ -12,11 +12,11 @@
 
 DeepSeek
 
--	The DeepSeek LLM will give just the overlap of the project 
+-	The DeepSeek LLM gave just the overlap of the project 
 -	Structure and the steps
 -	Not the full implemented project.
 -	While asking separately for each function it gives the code
--	Not like a full project for my understanding
+-	Not like a full project as per my understanding
 
 GPT
 
@@ -31,9 +31,11 @@ Claude
 -	But only have certain access tokens
 -	Generate the full code and folder structure
 -	Takes time for generation but generate it properly
+-   not completly but most of the functions are given.
+-   just like a base
 
 Google Gemini
 
 -	Gave structured approach to how work with the project
--	Basic code structured given only for the bus management.
--	No proper Logic for the complete project is not given.
+-	Basic code structure only given
+-	No proper Logic for the complete project is given.
