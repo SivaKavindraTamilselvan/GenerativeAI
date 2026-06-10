@@ -1,9 +1,9 @@
 import os
+import streamlit as st
 
 from langchain_chroma import Chroma
 from langchain_ollama import OllamaEmbeddings, ChatOllama
 from langchain_core.prompts import ChatPromptTemplate
-
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "chroma_db")
@@ -24,7 +24,7 @@ Question:
 Answer:
 """
 
-
+@st.cache_resource
 def get_vector_db():
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
 
@@ -47,7 +47,7 @@ def ask_question(question):
 
     context = ""
 
-    for i, (doc, score) in enumerate(results, start=1):
+    for (doc, score) in results:
         context += doc.page_content
         context += "\n"
 
@@ -68,13 +68,29 @@ def ask_question(question):
     print("\nAnswer:")
     print(response.content)
 
-if __name__ == "__main__":
-    print("Using vector DB:", DB_PATH)
+    return response.content,results
 
-    while True:
-        question = input("\nAsk question from PDF or type exit: ")
 
-        if question.lower() == "exit":
-            break
+st.title("Chat")
+st.write("Ask question from the pdf uploaded")
+st.sidebar.header("Vector DB")
+st.sidebar.subheader("The project implement the basic RAG concepts")
+st.sidebar.write("Used Ollama model for this purpose")
+st.sidebar.write("The Pdf is basic need for a library management")
+question = st.text_input("What is your question?")
 
-        ask_question(question)
+if st.button("Ask question"):
+    if not question.strip():
+        st.warning("Please enter a question.")
+    else:
+        with st.spinner("Loading vectors..."):
+            answers ,result = ask_question(question)
+
+        st.subheader(f"Answer: {answers}")
+        st.write(answers)
+
+        st.subheader("Retrieved chunk count:")
+
+        for i, (doc, score) in enumerate(result, start=1):
+            with st.expander(f"Chunk #{i}"):
+                st.write(doc.page_content)
