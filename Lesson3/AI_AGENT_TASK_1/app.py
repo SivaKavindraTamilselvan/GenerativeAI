@@ -1,11 +1,3 @@
-# app.py
-#
-# Simple Streamlit front-end for the product validation service.
-# Lets you fill in a product listing, send it to BOTH the fixed workflow
-# endpoint (/validate-product) and the agent endpoint (/validate-product-agent),
-# and see the results side by side.
-#
-# Run with:  streamlit run app.py
 
 import streamlit as st
 import requests

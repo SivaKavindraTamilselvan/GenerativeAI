@@ -1,14 +1,3 @@
-# main.py
-#
-# Product-validation microservice with BOTH implementations side by side:
-#
-#   /validate-product        -> fixed WORKFLOW (one prompt, one call, every time)
-#   /validate-variant        -> fixed WORKFLOW (variant version)
-#   /validate-product-agent  -> dynamic AGENT (decides which tools to call, per listing)
-#   /validate-variant-agent  -> dynamic AGENT (variant version)
-#
-# Same request models are shared by both (agent-only fields vendorId/price are optional,
-# so the workflow endpoints ignore them harmlessly if present).
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -24,9 +13,6 @@ app = FastAPI()
 
 KEY_VAULT_NAME = os.getenv("KeyVaultName")
 
-# Base URL of your ASP.NET Core backend, so the agent's "tools" can call real
-# repository-backed endpoints (vendor history, duplicate lookup, price averages)
-# instead of hitting the Postgres DB directly from Python.
 BACKEND_BASE_URL = os.getenv("BackendBaseUrl", "http://localhost:5000")
 
 
