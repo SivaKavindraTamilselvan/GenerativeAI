@@ -1,0 +1,1 @@
+Presidio AI Data Handling Policy: All employee use of AI tools must avoid uploading PII to third-party models. Any AI-generated content used in customer-facing material must be reviewed by a human before publishing.

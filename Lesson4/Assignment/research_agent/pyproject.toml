@@ -1,0 +1,22 @@
+[project]
+name = "research-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "chromadb==0.5.20",
+    "google-api-python-client==2.154.0",
+    "google-auth-httplib2==0.2.0",
+    "google-auth-oauthlib==1.2.1",
+    "langchain==0.3.7",
+    "langchain-community==0.3.7",
+    "langchain-mcp-adapters==0.0.5",
+    "langchain-ollama==0.2.1",
+    "langgraph==0.2.53",
+    "mcp==1.4.1",
+    "pypdf==5.1.0",
+    "python-dotenv==1.0.1",
+    "tavily-python==0.5.0",
+    "unstructured==0.16.5",
+]
