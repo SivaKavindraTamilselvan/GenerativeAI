@@ -1,12 +1,3 @@
-"""
-ingest.py
----------
-Vectorizes HR policy docs into a local Chroma store using Ollama's
-embedding model (nomic-embed-text) — fully local, no API key.
-
-Run once, and again whenever HR docs change:
-    python ingest.py
-"""
 
 import os
 from dotenv import load_dotenv

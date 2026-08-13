@@ -1,10 +1,3 @@
-"""
-rag_tool.py
------------
-Wraps the persisted Chroma vector store (built by ingest.py) as a
-LangChain @tool. Uses the same Ollama embedding model as ingestion —
-this MUST match ingest.py's model or similarity search breaks.
-"""
 
 import os
 from dotenv import load_dotenv

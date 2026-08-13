@@ -57,8 +57,6 @@ Rules:
 
 
 async def build_and_run():
-    # This version of MultiServerMCPClient establishes its connections only
-    # inside an async context manager - get_tools() returns [] outside of it.
     mcp_client = MultiServerMCPClient(
         {
             "presidio_gdocs": {
@@ -73,11 +71,8 @@ async def build_and_run():
         mcp_tools = mcp_client.get_tools()
         print("MCP tools loaded:", [t.name for t in mcp_tools])
 
-        # Combine MCP tools + RAG tool + web search tool
         all_tools = mcp_tools + [hr_policy_search, web_search]
 
-        # Local LLM via Ollama + ReAct-style agent loop.
-        # This langgraph version (0.2.53) uses `state_modifier`, not `prompt`.
         llm = ChatOllama(model=OLLAMA_CHAT_MODEL, temperature=0)
         agent = create_react_agent(llm, all_tools, state_modifier=SYSTEM_PROMPT)
 

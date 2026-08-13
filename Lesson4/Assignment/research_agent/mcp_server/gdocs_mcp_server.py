@@ -1,13 +1,4 @@
-"""
-gdocs_mcp_server.py
---------------------
-MCP server (FastMCP) exposing Presidio's insurance-related Google Docs
-as tools an LLM agent can call. Same pattern as the sticky-notes example:
-@mcp.tool() decorators, docstrings become the tool descriptions the LLM reads.
 
-Test standalone:
-    mcp dev mcp_server/gdocs_mcp_server.py
-"""
 
 import os
 from typing import List
@@ -27,7 +18,6 @@ SCOPES = ["https://www.googleapis.com/auth/documents.readonly",
 CLIENT_SECRET_FILE = os.environ.get("GOOGLE_CLIENT_SECRET_FILE", "credentials.json")
 TOKEN_FILE = os.environ.get("GOOGLE_TOKEN_FILE", "token.json")
 
-# Replace these with real Google Doc IDs (the long string in the doc URL)
 INSURANCE_DOCS = {
     "health_insurance_policy": "1I8pCU9DY0jOe1xkdf3AulwdUKeHB-9_quzx8st3qrE0",
     "life_insurance_policy": "1U1ACrAmTNyqfW-B7CNnF9FhZtJYAmD2wfZuN2oND7hw",
@@ -68,29 +58,11 @@ mcp = FastMCP("Presidio Insurance Docs")
 
 @mcp.tool()
 def list_insurance_docs() -> str:
-    """
-    List the Google Docs available for insurance-related queries.
-
-    Returns:
-        str: A newline-separated list of friendly doc names the agent
-             can pass to `read_insurance_doc` or `search_insurance_docs`.
-    """
     return "\n".join(INSURANCE_DOCS.keys())
 
 
 @mcp.tool()
 def read_insurance_doc(doc_name: str) -> str:
-    """
-    Fetch and return the full text of a named insurance Google Doc.
-
-    Args:
-        doc_name (str): One of the keys returned by list_insurance_docs(),
-                         e.g. "health_insurance_policy".
-
-    Returns:
-        str: The plain-text content of the document, or an error message
-             if the name isn't recognized.
-    """
     if doc_name not in INSURANCE_DOCS:
         return f"Unknown doc '{doc_name}'. Call list_insurance_docs() to see options."
 
@@ -102,17 +74,6 @@ def read_insurance_doc(doc_name: str) -> str:
 
 @mcp.tool()
 def search_insurance_docs(query: str) -> str:
-    """
-    Naive keyword search across all registered insurance docs.
-    For semantic search over large doc sets, prefer the RAG tool instead —
-    this MCP tool is best for small, curated, frequently-updated docs.
-
-    Args:
-        query (str): Keyword or phrase to search for.
-
-    Returns:
-        str: Matching doc names with a short snippet of surrounding context.
-    """
     creds = get_credentials()
     service = build("docs", "v1", credentials=creds)
     results: List[str] = []

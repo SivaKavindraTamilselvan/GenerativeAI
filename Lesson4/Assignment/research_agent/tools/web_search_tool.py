@@ -1,10 +1,3 @@
-"""
-web_search_tool.py
--------------------
-Fetches current industry benchmarks, hiring trends, and regulatory
-updates from the live web via Tavily. Swap in DuckDuckGoSearchRun if
-you don't want an external API key at all.
-"""
 
 import os
 from dotenv import load_dotenv
